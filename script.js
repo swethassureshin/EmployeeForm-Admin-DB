@@ -14,25 +14,34 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // Form submit
-  form.addEventListener("submit", (e) => {
+  form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    const employee = {
-      name: document.querySelector('input[placeholder="e.g. Johnathan Doe"]').value.trim(),
-      empId: document.querySelector('input[placeholder="EMP-2023-001"]').value.trim(),
-      department: document.querySelector("select").value,
-      date: new Date().toLocaleDateString()
-    };
+    const formData = new FormData();
 
-    // Save name for success page
-    localStorage.setItem("employeeName", employee.name);
+    formData.append("full_name", document.getElementById("fullName").value);
+    formData.append("email", document.getElementById("email").value);
+    formData.append("phone", document.getElementById("phone").value);
+    formData.append("address", document.getElementById("address").value);
+    formData.append("employee_id", document.getElementById("employeeId").value);
+    formData.append("department", document.getElementById("department").value);
+    formData.append("date_of_joining", document.getElementById("joinDate").value);
+    formData.append("gender", document.getElementById("gender").value);
+    formData.append("dob", document.getElementById("dob").value);
 
-    // Save list for admin dashboard
-    const employees = JSON.parse(localStorage.getItem("employees")) || [];
-    employees.push(employee);
-    localStorage.setItem("employees", JSON.stringify(employees));
+    if (fileInput.files.length > 0) {
+      formData.append("idProof", fileInput.files[0]);
+    }
 
-    // Redirect
-    window.location.href = "submit.html";
+    const response = await fetch("http://127.0.0.1:5000/add-employee", {
+      method: "POST",
+      body: formData
+    });
+
+    if (response.ok) {
+      window.location.href = "submit.html";
+    } else {
+      alert("Submission failed. Try again.");
+    }
   });
 });
