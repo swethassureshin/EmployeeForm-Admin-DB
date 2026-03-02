@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Admin Employee Detail View</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+@media print {
+
+  body {
+    background: white !important;
+  }
+
+  header,
+  nav,
+  footer,
+  button,
+  .no-print {
+    display: none !important;
+  }
+
+  main {
+    padding: 0 !important;
+  }
+
+  section {
+    break-inside: avoid;
+  }
+}
+</style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1f2937",
+                        "background-light": "#f6f7f7",
+                        "background-dark": "#16191c",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="relative flex flex-col min-h-screen w-full">
+<!-- Navigation Bar -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-10 py-3">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-4 text-primary dark:text-slate-100">
+<div class="size-6 flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="corporate_fare">corporate_fare</span>
+</div>
+<h2 class="text-lg font-bold leading-tight tracking-[-0.015em]">Swetha Admin's Portal</h2>
+</div>
+
+</div>
+<div class="flex flex-1 justify-end gap-4 items-center">
+<label class="hidden sm:flex flex-col min-w-40 !h-10 max-w-64">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full">
+<div class="text-slate-500 flex border-none bg-slate-100 dark:bg-slate-800 items-center justify-center pl-4 rounded-l-lg border-r-0">
+<span class="material-symbols-outlined text-sm" data-icon="search">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-slate-900 dark:text-slate-100 focus:outline-0 focus:ring-0 border-none bg-slate-100 dark:bg-slate-800 focus:border-none h-full placeholder:text-slate-500 px-4 rounded-l-none border-l-0 pl-2 text-sm font-normal" placeholder="Search" value=""/>
+</div>
+</label>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border border-slate-200 dark:border-slate-700" data-alt="Corporate employee profile picture" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCoJbpaAY3gjQeEK-jj_8aMFqXAWdlcPUtPbj_SDMdEcUC17ZDLAfgaEnHr7eL2gidFfBxaMaI3Ss1Re0sz1ESqSmHP95ayuGqmabSAklKLlxm09OrnVyxoYUhIm8s3Do8HSu7_VAP_qRQBI24it-xwa--siajYD1OooQZMBYRI6IebRJhShIkHGSYUt5MMpuC4bow-8Pmu3w4C5Vu8B6d9MbjHY1B4v_JURkxOjqWJaa-anvFd4UKFTmm3pFWI_rM28_OosyWRkcOh");'></div>
+</div>
+</header>
+<main class="flex-1 w-full max-w-[1000px] mx-auto py-8 px-6">
+<!-- Breadcrumb -->
+<nav class="flex items-center gap-2 mb-6 text-sm">
+<a href ="Admindash.html" class="flex items-center gap-1 text-slate-500 hover:text-primary dark:text-slate-400 dark:hover:text-white transition-colors" href="#">
+<span class="material-symbols-outlined text-sm">arrow_back</span>
+                Back to Dashboard
+            </a>
+</nav>
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-3">
+<h1 class="text-3xl font-black tracking-tight text-primary dark:text-white">Employee Profile</h1>
+</div>
+<p class="text-slate-500 dark:text-slate-400">Read-only view of employee registration data.</p>
+</div>
+<div class="flex gap-3">
+<button
+  onclick="printEmployee()"
+  class="flex items-center gap-2 bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 font-bold py-2.5 px-4 rounded-lg transition-all text-sm">
+  <span class="material-symbols-outlined text-[20px]">print</span>
+  Print Record
+</button>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Left Column: Primary Details -->
+<div class="lg:col-span-2 space-y-6">
+<!-- Personal Information -->
+<section class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
+<div class="px-6 py-4 border-b border-slate-100 dark:border-slate-800 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary dark:text-slate-400">person</span>
+<h2 class="font-bold text-lg">Personal Information</h2>
+</div>
+<div class="p-6 grid grid-cols-1 sm:grid-cols-2 gap-y-6 gap-x-8">
+<div>
+<p class="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-1">Full Name</p>
+<p id="fullName" class="text-base font-semibold text-slate-900 dark:text-slate-100"></p>
+</div>
+<div>
+<p class="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-1">Employee ID</p>
+<p id="employeeId" class="text-base font-semibold text-slate-900 dark:text-slate-100"></p>
+</div>
+<div>
+<p class="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-1">Email Address</p>
+<p id="email" class="text-base font-semibold text-slate-900 dark:text-slate-100"></p>
+</div>
+<div>
+<p class="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-1">Phone Number</p>
+<p id="phone" class="text-base font-semibold text-slate-900 dark:text-slate-100"></p>
+</div>
+<div>
+<p class="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-1">Date of Birth</p>
+<p id="dob" class="text-base font-semibold text-slate-900 dark:text-slate-100"></p>
+</div>
+<div>
+<p class="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-1">Gender</p>
+<p id="gender" class="text-base font-semibold"></p>
+</div>
+</div>
+</section>
+<!-- Employment Details -->
+<section class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
+<div class="px-6 py-4 border-b border-slate-100 dark:border-slate-800 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary dark:text-slate-400">work</span>
+<h2 class="font-bold text-lg">Employment Details</h2>
+</div>
+<div class="p-6 grid grid-cols-1 sm:grid-cols-2 gap-y-6 gap-x-8">
+<div>
+<p class="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-1">Department</p>
+<p id="department" class="text-base font-semibold text-slate-900 dark:text-slate-100"></p>
+</div>
+<div>
+<p class="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-1">Feild</p>
+<p class="text-base font-semibold text-slate-900 dark:text-slate-100">IT</p>
+</div>
+<div>
+<p class="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-1">Joining Date</p>
+<p id="joiningDate" class="text-base font-semibold text-slate-900 dark:text-slate-100"></p>
+</div>
+<div>
+<p class="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-1">Employment Type</p>
+<p class="text-base font-semibold text-slate-900 dark:text-slate-100">Full-Time (Remote)</p>
+</div>
+<div>
+<p class="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-1">Reporting Manager</p>
+<p class="text-base font-semibold text-slate-900 dark:text-slate-100">Sarah Jenkins</p>
+</div>
+<div>
+<p class="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-1">Work Location</p>
+<p class="text-base font-semibold text-slate-900 dark:text-slate-100">Dublin,Europe </p>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Column: Documents & Status -->
+<div class="lg:col-span-1 space-y-6">
+<!-- ID Proof Verification -->
+<section class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden no-print">
+<div class="px-6 py-4 border-b border-slate-100 dark:border-slate-800 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary dark:text-slate-400">badge</span>
+<h2 class="font-bold text-lg">Identity Verification</h2>
+</div>
+<div class="p-6">
+<div class="mb-4">
+<p class="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-2">Submitted ID Proof</p>
+<div class="flex items-center p-3 bg-slate-50 dark:bg-slate-800 rounded-lg border border-slate-100 dark:border-slate-700">
+<span id="fileIcon" class="material-symbols-outlined text-red-500 text-3xl mr-3">
+picture_as_pdf
+</span>
+<div class="flex-1 min-w-0">
+<p id="fileName" class="text-sm font-semibold truncate text-slate-900 dark:text-slate-100"></p>
+<p class="text-xs text-slate-500 dark:text-slate-400">PDF • 2.4 MB</p>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 gap-3">
+<a id="viewFile"
+   target="_blank"
+   class="flex items-center justify-center gap-2 py-2 px-3 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-lg text-sm font-bold transition-all">
+<span class="material-symbols-outlined text-[18px]">visibility</span>
+View
+</a>
+</div>
+
+</div>
+</div>
+</section>
+
+</div>
+</div>
+</main>
+<footer class="mt-auto border-t border-slate-200 dark:border-slate-800 py-8 px-6 bg-white dark:bg-slate-900">
+<div class="max-w-[1000px] mx-auto flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-slate-500 dark:text-slate-400">
+<p>Made By Swetha Suresh</p>
+<div class="flex gap-6">
+<a class="hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="hover:text-primary transition-colors" href="#">Support</a>
+</div>
+</div>
+</footer>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", async () => {
+
+  const params = new URLSearchParams(window.location.search);
+  const empId = params.get("id");
+
+  const response = await fetch("http://127.0.0.1:5000/employees");
+  const data = await response.json();
+
+  const employee = data.find(emp => emp.employee_id === empId);
+  console.log(employee);
+
+  if (employee) {
+
+    document.getElementById("fullName").textContent = employee.full_name;
+    document.getElementById("employeeId").textContent = employee.employee_id;
+    document.getElementById("email").textContent = employee.email;
+    document.getElementById("phone").textContent = employee.phone;
+document.getElementById("department").textContent =
+  employee.department.charAt(0).toUpperCase() + employee.department.slice(1);
+    
+    document.getElementById("joiningDate").textContent = employee.date_of_joining;
+    document.getElementById("dob").textContent = employee.dob;
+    document.getElementById("gender").textContent = employee.gender;
+
+    if (employee.file_name) {
+  const fileName = employee.file_name;
+  const fileExt = fileName.split(".").pop().toLowerCase();
+
+  document.getElementById("fileName").textContent = fileName;
+
+  const fileUrl = "http://127.0.0.1:5000/uploads/" + fileName;
+  document.getElementById("viewFile").href = fileUrl;
+
+const icon = document.getElementById("fileIcon");
+  if (fileExt === "pdf") {
+    icon.textContent = "picture_as_pdf";
+  } else if (["jpg", "jpeg", "png"].includes(fileExt)) {
+    icon.textContent = "image";
+  } else {
+    icon.textContent = "description";
+  }
+}
+  }
+});
+
+function printEmployee() {
+  window.print();
+}
+
+</script>
+</body>
+</html>
